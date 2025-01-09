@@ -9,11 +9,11 @@ public class Main {
 
         // Declaration of variables
         Scanner scanner = new Scanner(System.in); // this instance of scanner is used to read input
-        int firstNumber = 0;
-        int secondNumber = 0;
-        int thirdNumber = 0;
-        float i = 0;
-        String name = null;
+        int firstNumber;
+        int secondNumber;
+        int thirdNumber;
+        float i;
+        String name;
 
 
         //Exercise 1
@@ -25,13 +25,24 @@ public class Main {
 
         // Exercise II
         System.out.println("Second exercise 2:");
+        System.out.println("Give me a number: ");
+       // int leapYear = scanner.nextInt();
 
+        if ((scanner.nextInt() % 4) == 0)
+            System.out.println("It is a leapyear!");
+        else
+            System.out.println("It is not a leapyear!");
+
+
+/*
+        Using the controlInput method in this exercise creates a problem, askes twice to give a number
         // Check if the given year is a leap year
         if (controlInput() % 4 == 0) {
             System.out.println(controlInput() + " is a `leap year`!");
         } else {
             System.out.println(controlInput() + " is not a leap year !");
         }
+ */
 
         // Exercise 3
         System.out.println();
@@ -133,16 +144,16 @@ public class Main {
 
     public static String convertSecondToHour() {
         //This method is used to convert an input from the user to hours, minutes and seconds
-        int hours = 0;
-        int seconds = 0;
-        int minutes = 0;
+        int hours;
+        int seconds;
+        int minutes;
         int input = controlInput(); //this line creates an integer and assigns it with calling of method
 
         hours = input / 3600;       // One hour is 3600sec
         minutes = (input % 3600) / 60;  // One minute is 60 sec
         seconds = input % 60;
 
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds); //
 
     }
 
@@ -153,17 +164,36 @@ public class Main {
 
         //Creates a Scanner object to read the input and save it inside scanner, created local to save memory
         Scanner scanner = new Scanner(System.in);
-        boolean checkInput = false; // this line will be used to check if the correct input is given
-        // InputMismatchException can be null or send a message that can be accessed getMessage()
-        InputMismatchException exception;
-        exception = null;
+        boolean checkInput = false; // this line will be used to check if the correct input is give
 
         // The block below is error handling, it reads a line, problem will occur if reader inputs a string,
         // the block below handles the case so that the user enters expected input
 
+        // Using the while loop below gave a problem, it executed the code twice, find out later why?
+        while (!checkInput)
+        {
+            try {
+                System.out.print("Give me a number:");
+                // This line expects an integer from user and saves to terminalInput, if input is not an integer
+                // ti throws an exception InputMismatchException that needs to be handled
+                checkInput = true;
+                return scanner.nextInt();
+
+            }
+            // This block catches the exception ask fo a new input and clears the terminal input
+            catch (InputMismatchException exception) {
+                System.out.println("It needs to be a number, try again.");
+                scanner.nextLine();
+            }
+        }
+        // return scanner.nextInt();
+        return 0;
+    }
+/*
+        Doing the logic with below block gave the same problem asking twice
         if (!checkInput && (exception == null ) )// it will always enter this first if statment, checkInput = false
         {
-            System.out.println(1);
+            System.out.println(1); // all these lines are used for debugging purposes, comment or remove
             System.out.println(exception);  // Debuging purpose to check what is sent
             System.out.println(2);
             System.out.print("Give me a year: ");
@@ -185,29 +215,7 @@ public class Main {
         }
         return 0;
 
+ */
 
-// This line is creted so I could se why it does not push to github
 
-/*
-        // Using the while loop below gave a problem, it executed the code twice, find out later why?
-        while (!checkInput)
-        {
-            try {
-                System.out.print("Give me a number:");
-                // This line expects an integer from user and saves to terminalInput, if input is not an integer
-                // ti throws an exception InputMismatchException that needs to be handled
-                checkInput = true;
-                return scanner.nextInt();
-
-            }
-            // This block catches the exception ask fo a new input and clears the terminal input
-            catch (InputMismatchException exception) {
-                System.out.println("It needs to be a number, try again.");
-                scanner.nextLine();
-            }
-        }
-       // return scanner.nextInt();
-        return 0;
-*/
-    }
 }
