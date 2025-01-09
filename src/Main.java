@@ -1,6 +1,5 @@
-//The Scanner class gives us a way to listen and get user input.
-
 import java.util.InputMismatchException;
+//The Scanner class gives us a way to listen and get user input.
 import java.util.Scanner;
 
 
@@ -8,7 +7,8 @@ public class Main {
     public static void main(String[] args) {
 
         // Declaration of variables
-        Scanner scanner = new Scanner(System.in); // this instance of scanner is used to read input
+        //Scanner creates instance of the Scanner object that gives us tool to read from keyboard
+        Scanner scanner = new Scanner(System.in);
         int firstNumber;
         int secondNumber;
         int thirdNumber;
@@ -29,13 +29,13 @@ public class Main {
        // int leapYear = scanner.nextInt();
 
         if ((scanner.nextInt() % 4) == 0)
-            System.out.println("It is a leapyear!");
+            System.out.println("It is a leap year!");
         else
-            System.out.println("It is not a leapyear!");
+            System.out.println("It is not a leap year!");
 
 
 /*
-        Using the controlInput method in this exercise creates a problem, askes twice to give a number
+        Using the controlInput method in this exercise creates a problem, asks twice to give a number
         // Check if the given year is a leap year
         if (controlInput() % 4 == 0) {
             System.out.println(controlInput() + " is a `leap year`!");
@@ -79,7 +79,7 @@ public class Main {
         //Exercise 6
         System.out.println();
         System.out.println("Sixth exercise 6: ");
-        System.out.println("This takes two nr and gives result for addition, multiplication, division and subraction");
+        System.out.println("This takes two nr and gives result for addition, multiplication, division and subtraction");
 
         firstNumber = controlInput();
         secondNumber = controlInput();
@@ -94,7 +94,7 @@ public class Main {
         //Exercise 7
         System.out.println();
         System.out.println("Seventh exercise 7: ");
-        System.out.println("This askes for a number and returns the value converted to HH:MM:SS");
+        System.out.println("This asks for a number and returns the value converted to HH:MM:SS");
         System.out.println(convertSecondToHour());
 
         //Exercise 8
@@ -108,9 +108,9 @@ public class Main {
 
     public static Integer mathRandomNumber() {
         //For this function it is possible to also use Random
-        // I choose to use Math.random so I could recieve an integer between 0 -99
+        // I choose to use Math.random, so I could receive an integer between 0 -99
 
-        double randomNumber = Math.random(); //This line gives us an random nr between 0.0 and 1.0
+        double randomNumber = Math.random(); //This line gives us a random nr between 0.0 and 1.0
 
         //Generating an random nr between 0 - 99
         return (int) (randomNumber * 100);
@@ -126,8 +126,7 @@ public class Main {
         int number = scanner.nextInt();
 
         while (number != randomNumber) {
-            //System.out.println(randomNumber);
-            // This line is for debugging perposes and prints out the randomnr generated, so that I could find the problem
+            //System.out.println(randomNumber); //This is used for debugging
             if (number > randomNumber) {
                 System.out.println("Guess a new number, tip `lower´");
                 number = controlInput();
@@ -163,24 +162,25 @@ public class Main {
         //InputMismatchException page: https://labex.io/tutorials/java-how-to-handle-java-util-inputmismatchexception-417321
 
         //Creates a Scanner object to read the input and save it inside scanner, created local to save memory
+        //this is a local version for the method, when exited, the memory released, how to use global?
         Scanner scanner = new Scanner(System.in);
-        boolean checkInput = false; // this line will be used to check if the correct input is give
+        // this line will be used to check if the correct input is give, initialized to false for entering loop
+        boolean checkInput = false;
 
         // The block below is error handling, it reads a line, problem will occur if reader inputs a string,
         // the block below handles the case so that the user enters expected input
+        // in this method the scanner is reading and expecting an integer (scanner.nextInt()), possible to
+        // read different objects such as double, float, string and so on
 
-        // Using the while loop below gave a problem, it executed the code twice, find out later why?
         while (!checkInput)
         {
             try {
                 System.out.print("Give me a number:");
-                // This line expects an integer from user and saves to terminalInput, if input is not an integer
-                // ti throws an exception InputMismatchException that needs to be handled
                 checkInput = true;
-                return scanner.nextInt();
+                return scanner.nextInt(); // expects integer, if not an integer throws exception, check block below
 
             }
-            // This block catches the exception ask fo a new input and clears the terminal input
+            // This block catches the exception if user enters something else than integer
             catch (InputMismatchException exception) {
                 System.out.println("It needs to be a number, try again.");
                 scanner.nextLine();
@@ -188,33 +188,4 @@ public class Main {
         }
         return 0;
     }
-/*
-        Doing the logic with below block gave the same problem asking twice
-        if (!checkInput && (exception == null ) )// it will always enter this first if statment, checkInput = false
-        {
-            System.out.println(1); // all these lines are used for debugging purposes, comment or remove
-            System.out.println(exception);  // Debuging purpose to check what is sent
-            System.out.println(2);
-            System.out.print("Give me a year: ");
-            System.out.println(3);
-            checkInput = true; // If it is a leap year change stat to exit the statement
-            System.out.println(4);
-            return scanner.nextInt();
-
-        }
-        else if (exception != null)
-        {
-            System.out.println(5);
-            System.out.println(exception.toString());  // debugging, control return
-            System.out.println(6);
-            System.out.println("It needs to be a number, try again.");
-            System.out.println(7);
-            scanner.nextLine();  // using this to clear the buffer, if not a numerical nr is entered then this clear the buffer and reads new data
-            System.out.println(8);
-        }
-        return 0;
-
- */
-
-
 }
